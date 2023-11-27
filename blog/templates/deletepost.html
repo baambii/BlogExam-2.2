@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Post</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+
+        h1 {
+            text-align: center;
+            animation: bounce 1s infinite;
+            font-family: 'Typewriter_Condensed', sans-serif;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .delete-section {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .delete-img {
+            max-width: 300px;
+            margin-bottom: 20px;
+        }
+
+        .delete-message {
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+
+        .delete-button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            background-color: #FE9C9C;
+            color: white;
+            cursor: pointer;
+        }
+
+        .delete-button:hover {
+            background-color: #FFCCCC;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="delete-section">
+            <h1>Delete Post</h1>
+            <img src="https://media4.giphy.com/media/iheooamYZNu1F92EUI/giphy.gif?cid=ecf05e47f2tzbtvs5hkawl1pq6tj6oivdojkx7k566jfbakr&ep=v1_stickers_search&rid=giphy.gif&ct=s" alt="Delete GIF" class="delete-img">
+            <p class="delete-message">Are you sure you want to delete the post "{{ object.title }}"?</p>
+
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="delete-button">Yes, Delete</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+{% endblock %}

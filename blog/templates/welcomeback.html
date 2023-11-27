@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+<style>
+    .navigation-buttons {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    .navigation-buttons a {
+        text-decoration: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        background-color: #FF80AB;
+        color: white;
+        transition: background-color 0.3s ease-in-out;
+        margin: 0 5px;
+    }
+
+    .navigation-buttons a:hover {
+        background-color: #FF527B;
+    }
+
+
+    .main-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+</style>
+
+<div class="main-container">
+    <div class="navigation-buttons">
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'profile' %}">Profile</a>
+        <a href="{% url 'createpost' %}">Create Post</a>
+        <a href="{% url 'homepage' %}">Homepage</a>
+        <a href="{% url 'signout' %}">Sign Out</a>
+    </div>
+</div>
+{% endblock %}

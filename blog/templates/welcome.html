@@ -1,0 +1,110 @@
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome to Pochaccho Blog</title>
+    <link href="https://cdn.tailwindcss.com" rel="stylesheet">
+    <style>
+        body {
+            background-color: #F8F6EB;
+            font-family: ADELIA, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .welcome-message {
+            text-align: center;
+        }
+
+        .welcome-message h1 {
+            color: #FE9C9C;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .pochacco-image {
+            width: 200px;
+            height: auto;
+        }
+
+        .post {
+            Font-family: Typewriter_Condensed, sans-serif; 
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #fff;
+            border-radius: 8px;
+        }
+
+        .post h2 {
+            Font-family: Ariel, sans-serif; 
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .post p {
+            
+            color: #666;
+            font-size: 16px;
+        }
+
+        .login-prompt {
+            margin-top: 20px;
+        }
+
+        .login-prompt p {
+            color: #333;
+            font-size: 18px;
+        }
+
+        .login-button {
+            background-color: #FE9C9C;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="welcome-message">
+        <h1>Welcome to Pochaccho Blog!♡</h1>
+        <img class="pochacco-image" src="https://media.tenor.com/bQAhRODlncMAAAAi/pochacco-sanrio.gif" alt="Pochaccho Image">
+
+        <div class="dummy-posts">
+            <div class="post">
+                <h2>How my grandma became a car</h2>
+                <p>If you add wheels to your grandma does that make her a car? </p>
+            </div>
+
+            <div class="post">
+                <h2>Miles Morales</h2>
+                <p>Best qoute from the movie *puts arm on shoulder* "hey"  </p>
+            </div>
+
+            <div class="post">
+                <h2>Headache</h2>
+                <p>Trying to figure out why my bootstrap don't work for hours...hint: check the path you're installing it in.</p>
+            </div>
+        </div>
+
+        <div class="login-prompt">
+            <p>Login to start your fun!</p>
+            <a href="{% url 'login' %}">
+                <button class="login-button">Login</button>
+            </a>
+        </div>
+    </div>
+</body>
+</html>
+
+{% endblock %}

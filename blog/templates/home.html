@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        h1 {
+            text-align: center;
+            animation: bounce 1s infinite;
+            font-family: 'Typewriter_Condensed', sans-serif;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .post-content {
+            position: relative;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #FFCCCC;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease-in-out;
+            margin-bottom: 20px;
+            cursor: pointer;
+            font-family: 'Typewriter_Condensed', sans-serif;
+        }
+
+        .post-content:hover {
+            transform: scale(1.03);
+        }
+
+        .to-do-list {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: #FFCCCC;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 999;
+            font-family: 'Typewriter_Condensed', sans-serif;
+        }
+
+        .to-do-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .to-do-input {
+            flex: 1;
+            margin-right: 10px;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            outline: none;
+        }
+
+        .to-do-button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            background-color: #FE9C9C;
+            color: white;
+            cursor: pointer;
+        }
+
+
+        .date-time-section {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #FFCCCC;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            font-family: 'Typewriter_Condensed', sans-serif;
+        }
+
+
+        .post-image-placeholder {
+            background-color: #FFCCCC;
+            color: #FE9C9C;
+            text-align: center;
+            padding: 20px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the Home Page!</h1>
+
+        <div class="post-section">
+            <h2>Recent Posts:</h2>
+            {% for post in posts reversed %}
+                <div class="post-content" onclick="window.location.href='{% url 'postdetail' post.pk %}'">
+                    <h3>{{ post.title }}</h3>
+                    <p><strong>Author:</strong> {{ post.author }}</p>
+                    <p><strong>Published on:</strong> {{ post.created_on }}</p>
+
+                    <p>{{ post.content | slice:":150" }}{% if post.content|length > 150 %}...{% endif %}</p>
+
+                    <div class="post-image-placeholder">
+                        Click to view media
+                    </div>
+                </div>
+            {% endfor %}
+
+            <a href="{% url 'createpost' %}" class="create-post-button">Create Post</a>
+        </div>
+
+        <div class="to-do-list" id="toDoList">
+            <h3>To-Do List:</h3>
+            <div class="to-do-item">
+                <input type="text" id="taskInput" class="to-do-input" placeholder="Add a task...">
+                <button onclick="addTask()" class="to-do-button">Add Task</button>
+            </div>
+            <ul id="taskList"></ul>
+            <button onclick="toggleToDoList()">Toggle To-Do List</button>
+        </div>
+
+        <div class="date-time-section">
+            <h3>Local Date & Time:</h3>
+            <p id="currentDateTime"></p>
+        </div>
+    </div>
+
+    <script>
+        function addTask() {
+            const taskInput = document.getElementById('taskInput');
+            const taskList = document.getElementById('taskList');
+            const newTask = taskInput.value;
+
+            if (newTask.trim() !== '') {
+                const listItem = document.createElement('li');
+                listItem.textContent = newTask;
+                taskList.appendChild(listItem);
+                taskInput.value = '';
+            } else {
+                alert('Please enter a task!');
+            }
+        }
+
+        function toggleToDoList() {
+            const toDoList = document.getElementById('toDoList');
+            if (toDoList.style.display === 'none') {
+                toDoList.style.display = 'block';
+            } else {
+                toDoList.style.display = 'none';
+            }
+        }
+
+        function updateDateTime() {
+            const dateTimeElement = document.getElementById('currentDateTime');
+            const now = new Date();
+            const dateTimeString = now.toLocaleString();
+
+            dateTimeElement.textContent = dateTimeString;
+        }
+
+        setInterval(updateDateTime, 1000);
+        updateDateTime();
+    </script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,101 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pochacco Blog</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+        .fixed-top-left {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 999;
+        }
+        .pochaccho-logo {
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+        }
+        body {
+            background-color: #F8F6EB;
+            margin-top: 60px;
+        }
+
+        .content-container {
+            padding: 2rem;
+        }
+        .pink-text {
+            color: #FE9C9C;
+        }
+
+        .profile-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 8px;
+        }
+        .dropdown-menu {
+            min-width: auto;
+        }
+        .fixed-top-right {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 999;
+        }
+
+        .navbar {
+            box-shadow: none;
+            border-bottom: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="fixed-top-left">
+                <a class="navbar-brand" href="{% url 'home' %}">
+                    <img src="https://media4.giphy.com/media/10a8AOSeP6Rqfu/giphy.gif?cid=ecf05e479spx35o0otpyq6ytd97cfp1drzrxbhbvh9vzf9sx&ep=v1_stickers_search&rid=giphy.gif&ct=s" alt="Pochaccho Logo" class="pochaccho-logo">
+                </a>
+            </div>
+            <div class="fixed-top-right">
+                {% if user.is_authenticated %}
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle pink-text" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="{% if user.profile.image %}{{ user.profile.image.url }}{% else %}/path/to/default.jpg{% endif %}" alt="Profile Image" class="profile-img">
+                            <span>{{ user.username }}</span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'createpost' %}">Create Post</a></li>
+                            <li><a class="dropdown-item" href="{% url 'welcomeback' %}">Home</a></li>
+                            <li><a class="dropdown-item" href="{% url 'signout' %}">Sign Out</a></li>
+                        </ul>
+                    </div>
+                {% else %}
+                    <a href="{% url 'login' %}" class="btn btn-pink">Not Logged In</a>
+                {% endif %}
+            </div>
+        </nav>
+
+        {% block content %}
+            <div class="content-container">
+
+            </div>
+        {% endblock %}
+
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    </div>
+</body>
+
+</html>
